@@ -2,12 +2,12 @@ const args = [
   {
     query: "<length>",
     name: "Length",
-    description: "Length of the password to generate",
+    description: "Length of the password to generate [default: 12]",
   },
   {
     query: "-s, --symbols",
     name: "Symbols",
-    description: "Include symbols in the password",
+    description: "Include symbols in the password [default: False]",
   },
   {
     query: "-h, --help",

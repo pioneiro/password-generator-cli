@@ -1,10 +1,9 @@
 {
   "name": "@pioneiro/password-generator",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "CLI to generate secure passwords.",
   "main": "src/index.js",
   "bin": {
-    "@pioneiro/genpass": "bin/genpass",
     "genpass": "bin/genpass"
   },
   "publishConfig": {
@@ -23,5 +22,9 @@
     "esm": "^3.2.25",
     "inquirer": "^8.1.2",
     "nanoid": "^3.1.23"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
