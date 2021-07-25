@@ -1,22 +1,39 @@
 import arg from "arg";
+import help from "./help";
 import passwordGenerator from ".";
 // import inquirer from "inquirer";
 
 const parseArguments = (rawArgs) => {
-  const args = arg(
-    {
-      "--symbols": Boolean,
-      "-s": "--symbols",
-    },
-    {
-      argv: rawArgs.slice(2),
-    }
-  );
+  let returnObj = new Object();
 
-  return {
-    includeSymbols: args["--symbols"] || false,
-    length: Number(args._[0]) || 12,
-  };
+  try {
+    const args = arg(
+      {
+        "--help": Boolean,
+        "--symbols": Boolean,
+        "-s": "--symbols",
+        "-h": "--help",
+      },
+      {
+        argv: rawArgs.slice(2),
+      }
+    );
+
+    returnObj = args["--help"]
+      ? {
+          help: true,
+        }
+      : {
+          includeSymbols: args["--symbols"] || false,
+          length: Number(args._[0]) || 12,
+        };
+  } catch (error) {
+    returnObj = {
+      error: "Unexpected arguments encountered",
+    };
+  }
+
+  return returnObj;
 };
 
 // const promptMissing = async (options) => {
@@ -42,7 +59,8 @@ const cli = async (args) => {
   const options = parseArguments(args);
   // const options = await promptMissing(parseArguments(args));
 
-  console.log(passwordGenerator(options));
+  if (options.error || options.help) help(options.error);
+  else console.log(passwordGenerator(options));
 };
 
 export { cli };
