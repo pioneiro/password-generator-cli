@@ -1,26 +1,28 @@
 const args = [
   {
-    query: "<length>",
+    command: "<length>",
     name: "Length",
-    description: "Length of the password to generate [default: 12]",
+    description: "Length of the password to generate [optional] [default: 12]",
   },
   {
-    query: "-s, --symbols",
+    command: "-s, --symbols",
     name: "Symbols",
-    description: "Include symbols in the password [default: False]",
+    description: "Include symbols in the password [optional] [default: False]",
   },
   {
-    query: "-h, --help",
+    command: "-h, --help",
     name: "Help",
     description: "Display help",
   },
 ];
 
 const help = (customMessage) => {
-  if (customMessage) console.error(customMessage, "\n");
+  if (customMessage) console.error(`\nError: ${customMessage}`);
+
+  console.log(`\nUsage: genpass <length> [options]\n`);
 
   args.forEach((e) =>
-    console.log(`${e.query}\t\t${e.name}\t\t${e.description}`)
+    console.log(`${e.command}\t\t${e.name}\t\t${e.description}`)
   );
 };
 

@@ -1,6 +1,7 @@
 import arg from "arg";
 import help from "./help";
 import passwordGenerator from ".";
+import pkg from "../package.json";
 // import inquirer from "inquirer";
 
 const parseArguments = (rawArgs) => {
@@ -10,9 +11,11 @@ const parseArguments = (rawArgs) => {
     const args = arg(
       {
         "--help": Boolean,
+        "--version": Boolean,
         "--symbols": Boolean,
         "-s": "--symbols",
         "-h": "--help",
+        "-v": "--version",
       },
       {
         argv: rawArgs.slice(2),
@@ -22,6 +25,10 @@ const parseArguments = (rawArgs) => {
     returnObj = args["--help"]
       ? {
           help: true,
+        }
+      : args["--version"]
+      ? {
+          vertion: true,
         }
       : {
           includeSymbols: args["--symbols"] || false,
@@ -59,8 +66,9 @@ const cli = async (args) => {
   const options = parseArguments(args);
   // const options = await promptMissing(parseArguments(args));
 
-  if (options.error || options.help) help(options.error);
-  else console.log(passwordGenerator(options));
+  if (options.vertion) console.log(pkg.version);
+  else if (options.error || options.help) help(options.error);
+  else passwordGenerator(options);
 };
 
 export { cli };
